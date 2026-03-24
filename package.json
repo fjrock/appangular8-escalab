@@ -1,6 +1,10 @@
 {
   "name": "appangular",
   "version": "0.0.0",
+  "engines": {
+    "node": "20.x",
+    "npm": ">=10"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
