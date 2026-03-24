@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit} from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
   })
   export class LoginComponent implements OnInit {
 
-    form: FormGroup;
+    form: UntypedFormGroup;
     error = false;
     mensajeError: any;
 
-    constructor(private formBuilder: FormBuilder, 
+    constructor(private formBuilder: UntypedFormBuilder, 
                 private router: Router,
                 private loginService: LoginService
                 ) 
@@ -26,23 +26,21 @@ import { Router } from '@angular/router';
       this.error=false;
     }
   
-    login(form: any) {
+    async login(form: any) {
+      if (!this.form.valid) {
+        return;
+      }
 
-      if (this.form.valid) {
+      this.error = false;
+      this.mensajeError = '';
 
-        this.loginService.login(form)
-        .then(res => {
-
-            this.router.navigate(['/admin']);
-
-        })
-        .catch(err => {
-
-          this.mensajeError = err;
-          this.error = true;
-          this.createForm();
-
-        });
+      try {
+        await this.loginService.login(form);
+        this.router.navigate(['/admin']);
+      } catch (err: any) {
+        this.error = true;
+        this.mensajeError = this.getFirebaseErrorMessage(err);
+        this.createForm();
       }
     }
 
@@ -51,6 +49,22 @@ import { Router } from '@angular/router';
         email: ['', Validators.compose([Validators.required, Validators.email])],
         password: ['', [Validators.required]],
       });
+    }
+
+    private getFirebaseErrorMessage(error: any): string {
+      const code = error?.code || '';
+      switch (code) {
+        case 'auth/user-not-found':
+          return 'No existe un usuario con ese correo.';
+        case 'auth/wrong-password':
+          return 'La contrasena es incorrecta.';
+        case 'auth/invalid-email':
+          return 'El correo no tiene un formato valido.';
+        case 'auth/too-many-requests':
+          return 'Demasiados intentos. Intenta nuevamente en unos minutos.';
+        default:
+          return 'No fue posible iniciar sesion. Verifica tus credenciales.';
+      }
     }
 
   }

@@ -1,17 +1,27 @@
 .principal  {
-    background-image: url('../../../../../assets/madera.jpg');
-    height: 600px; 
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-  }
-  
-  .mat-card-content {
-    color: white;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    
-  }
+  background: linear-gradient(rgba(11, 17, 32, 0.8), rgba(11, 17, 32, 0.9)),
+    url('../../../../../assets/madera.jpg') center / cover no-repeat;
+  border-radius: var(--radius);
+  margin-top: 1rem;
+  padding: 1.5rem 0 2rem;
+}
+
+.mat-card {
+  max-width: 700px;
+  margin: 0 auto 1rem;
+  background: transparent;
+  box-shadow: none;
+  text-align: center;
+}
+
+.mat-card-image {
+  width: min(430px, 90%);
+  margin: 0.8rem auto;
+  border-radius: 14px;
+  filter: contrast(1.08) saturate(1.12);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 18px rgba(56, 189, 248, 0.2);
+}
+
+.mat-card-content {
+  color: var(--text);
+}

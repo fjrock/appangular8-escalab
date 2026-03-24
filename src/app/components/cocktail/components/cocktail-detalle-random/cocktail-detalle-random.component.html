@@ -1,25 +1,18 @@
 <app-header></app-header>
-<div class="principal"> 
+<section class="principal"> 
+  <div class="app-container">
+    <mat-card class="mat-card glass-panel" *ngFor="let random of asyncDrink$ | async">
+      <img mat-card-image src="{{random.strDrinkThumb }}" class="mat-card-image" [alt]="random.strDrink">
+      <mat-card-content class="mat-card-content">
+        <p class="title">{{ random.strDrink }}</p>
+        <p><strong>Ingredientes:</strong> {{ ingredients }}</p>
+        <p>{{ random.strInstructions }}</p>
+      </mat-card-content>
+    </mat-card>
 
-<mat-card class="mat-card" *ngFor="let random of asyncDrink$ | async">
-    <mat-card-header>
-    </mat-card-header>
-    <img mat-card-image src="{{random.strDrinkThumb }}" class="mat-card-image">
-    <mat-card-content class="mat-card-content">
-      <p class="p">
-        {{ random.strDrink }}
-      </p>
-        <br>
-        <br>
-        Ingredients : {{ ingredients }}
-        <br>
-        <br>
-        {{ random.strInstructions }}  
-    </mat-card-content>
-  </mat-card>
-  <div class="col-md-12 text-center">
-    <button type="button" class="btn btn-primary" routerLink="/cocktail">Back To The Search</button>
-   </div>
-</div>
+    <div class="col-md-12 text-center">
+      <button type="button" class="btn-modern" routerLink="/cocktail">Volver a busqueda</button>
+    </div>
+  </div>
+</section>
 <app-footer></app-footer>
-<div>

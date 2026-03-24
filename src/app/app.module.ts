@@ -9,10 +9,10 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { CocktailModule} from './components/cocktail/cocktail.module';
 import { MaterialModule } from './components/material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularFireModule } from "@angular/fire";
-import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { environment} from '../environments/environment'
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { LoginModule } from './components/login/login.module';
 import { AdminModule } from './components/admin/admin.module';
 import {  HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -36,12 +36,12 @@ import { HeaderInterceptorService } from './interceptors/header-interceptor.serv
     MaterialModule,
     BrowserAnimationsModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
     
 
   ],
-  providers: [AngularFirestore,
-    {provide: HTTP_INTERCEPTORS,
+  providers: [{provide: HTTP_INTERCEPTORS,
       useClass: HeaderInterceptorService,
       multi: true}],
   bootstrap: [AppComponent]

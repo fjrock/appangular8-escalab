@@ -1,40 +1,36 @@
-  
-  .mat-card-avatar {
-    background-image: url('../../../../../assets/salud.jpeg');
-    background-size: cover;
-  }
+.principal {
+  background: linear-gradient(rgba(11, 17, 32, 0.78), rgba(11, 17, 32, 0.88)),
+    url('../../../../../assets/madera.jpg') center / cover no-repeat;
+  border-radius: var(--radius);
+  margin-top: 1rem;
+  padding: 1.5rem 0 2rem;
+}
 
-  .principal {
-    background-image: url('../../../../../assets/madera.jpg');
-    background-size: cover;
-  }
+.mat-card {
+  margin: 0 auto 1rem;
+  max-width: 900px;
+  background: transparent;
+  box-shadow: none;
+}
 
-  .mat-card{
-    max-width: 100vh;
-    margin-left: auto;
-    margin-right: auto;
-  }
+.mat-card-image {
+  width: min(460px, 92%);
+  margin: 0.5rem auto 1rem;
+  border-radius: 14px;
+  object-fit: cover;
+  filter: contrast(1.1) saturate(1.15);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 22px rgba(56, 189, 248, 0.24),
+    0 0 34px rgba(34, 197, 94, 0.18);
+}
 
-  .mat-card-content {
-    color: white;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    
-  }
+.mat-card-content {
+  width: min(760px, 92%);
+  margin: 0 auto;
+  color: var(--text);
+}
 
-  .p{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 25%;
-  }
-
-  .mat-card-image{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    border-radius: 8px; 
-  }
+.title {
+  margin: 0 0 0.7rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+}

@@ -1,16 +1,15 @@
 <app-header></app-header>
-<div class="principal"> 
-
-<mat-card class="mat-card">
-    <mat-card-header>
-    </mat-card-header>
-    <img mat-card-image src="/../../../../../../assets/resaca.jpg" class="mat-card-image">
-    <mat-card-content class="mat-card-content">
-      <img mat-card-image src="/../../../../../../assets/404.png" class="mat-card-image">
-    </mat-card-content>
-  </mat-card>
-  <div class="col-md-12 text-center">
-    <button type="button" class="btn btn-primary" routerLink="/cocktail">Back To The Pub</button>
+<section class="principal"> 
+  <div class="app-container">
+    <mat-card class="mat-card glass-panel">
+      <img mat-card-image src="/../../../../../../assets/resaca.jpg" class="mat-card-image" alt="Not found image">
+      <mat-card-content class="mat-card-content">
+        <img mat-card-image src="/../../../../../../assets/404.png" class="mat-card-image error-img" alt="404">
+      </mat-card-content>
+    </mat-card>
+    <div class="col-md-12 text-center">
+      <button type="button" class="btn-modern" routerLink="/cocktail">Volver al pub</button>
+    </div>
   </div>
-</div>
+</section>
 <app-footer></app-footer>

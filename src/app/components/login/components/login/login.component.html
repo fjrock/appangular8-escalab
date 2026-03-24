@@ -1,35 +1,17 @@
+<section class="login-wrap">
+  <div class="app-container">
+    <form [formGroup]="form" class="login-card glass-panel" (ngSubmit)="login(form.value)">
+      <h2>Iniciar sesion</h2>
+      <p>Accede a la zona administrable del pub.</p>
 
-    <div class="principal"> 
+      <input formControlName="email" type="email" class="form-control modern-input" placeholder="Correo electronico">
+      <input formControlName="password" type="password" class="form-control modern-input" placeholder="Contrasena">
 
-       <form [formGroup]="form" class="card"  (ngSubmit)="login(form.value)">
-        
-        <div class="card">
+      <button [disabled]="form.invalid" class="btn-modern" type="submit">Ingresar</button>
 
-            <div class="row">
-              <div class="col-xs">
-                <input formControlName="email" type="text" aria-label="First name" class="form-control" placeholder="Enter Email...">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs">
-                <input formControlName="password" type="password" aria-label="First name" class="form-control" placeholder="Enter Password...">
-              </div>
-            </div>
-            
-    
-            
-            <button [disabled]="form.invalid" class="btn btn-primary" type="submit">Ingresar</button>
-        </div>
-
-    </form>
-
-    <div  *ngIf="error"> 
-      <div class="col-xs">
-        <div class="alert alert-danger" role="alert">
-         {{mensajeError}}
-        </div>
+      <div *ngIf="error" class="alert alert-danger mt-3" role="alert">
+        {{mensajeError}}
       </div>
-    </div>
-    
-  </div>  
-    
+    </form>
+  </div>
+</section>

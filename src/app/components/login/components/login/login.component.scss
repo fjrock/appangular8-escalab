@@ -1,23 +1,46 @@
-.login {
-    padding: 40px;
+.login-wrap {
+  background: linear-gradient(rgba(11, 17, 32, 0.8), rgba(11, 17, 32, 0.9)),
+    url('../../../../../assets/madera.jpg') center / cover no-repeat;
+  border-radius: var(--radius);
+  margin-top: 1rem;
+  padding: 2rem 0;
 }
 
-mat-form-field.mat-form-field {
-    font-size: 22px;
+.login-card {
+  width: min(460px, 92%);
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: grid;
+  gap: 0.9rem;
 }
 
-.card{
-    max-width: 100vh;
-    margin-left: auto;
-    margin-right: auto;
-  }
+h2 {
+  margin: 0;
+}
 
-  .principal {
-    background-image: url('../../../../../assets/madera.jpg');
-    background-size: cover;
-    height: 600px;
-  }
+p {
+  margin: 0 0 0.2rem;
+  color: var(--muted);
+}
 
-  .alert{
-    text-align: center;
-  }
+.modern-input {
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(2, 6, 23, 0.6);
+  color: var(--text);
+}
+
+.modern-input::placeholder {
+  color: #b4bcc8;
+}
+
+.modern-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0.2rem rgba(56, 189, 248, 0.2);
+}
+
+.alert {
+  text-align: center;
+  margin-bottom: 0;
+}

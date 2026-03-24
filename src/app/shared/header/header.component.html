@@ -1,7 +1,14 @@
-<mat-toolbar color="primary">
-    <mat-toolbar-row class="center-xs">
-        <a mat-raised-button routerLink="/home" routerLinkActive="active">Home</a>
-        <a mat-raised-button class="ml-xs" color="primary" routerLink="/cocktail" routerLinkActive="active">Pub</a>
-        <a mat-raised-button class="ml-xs" color="primary" routerLink="/login" routerLinkActive="active">Login</a>
-    </mat-toolbar-row>
-</mat-toolbar>
+<header class="topbar glass-panel">
+  <div class="app-container topbar-content">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span>Escalab Pub</span>
+    </div>
+
+    <nav class="nav-links">
+      <a routerLink="/home" routerLinkActive="is-active">Inicio</a>
+      <a routerLink="/cocktail" routerLinkActive="is-active">Cocteles</a>
+      <a routerLink="/login" routerLinkActive="is-active">Login</a>
+    </nav>
+  </div>
+</header>

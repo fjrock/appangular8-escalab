@@ -1,52 +1,110 @@
+<section class="cocktail-page">
+  <div class="app-container">
+    <div class="toolbar glass-panel">
+      <div class="toolbar-actions" *ngIf="asyncDrink$ | async as drinks">
+        <button type="button" class="btn-modern" value="{{drinks.idDrink}}" (click)="getCocktailById(drinks.idDrink)">
+          Aleatorio
+        </button>
+      </div>
 
- <div class="bg">
-
-   <div class="vasos">
-      <mat-toolbar>
-        <div class="row">
-          <div *ngIf="asyncDrink$ | async as drinks" class="col"> 
-            <button type="button" class="btn btn-danger" value="{{drinks.idDrink}}" (click)="getCocktailById(drinks.idDrink)">Search Randomly</button>
-         </div>
-       </div>
-     </mat-toolbar>
-     <mat-toolbar>
-      <div class="row">
-       <div class="col">
-         <input matInput [(ngModel)]="searchLetter" (input)="getCocktailByLetterCocktail()" maxlength="1" style="width: 250px" class="mr5" type="text" placeholder="Search By Character...">
-       </div>
-     </div>
-    </mat-toolbar>
-  </div>
-     
-     <div id="carouselCaptions" class="carousel slide" data-ride="carousel">
-       <ol class="carousel-indicators">
-         <li data-target="#carouselCaptions"  *ngFor="let random of asyncRandom$ | async;let index = index" [attr.data-slide-to]="index"></li>
-       </ol>
-
-       <div class="carousel-inner">
-         <div class="carousel-item" *ngFor="let random of asyncRandom$ | async;let index = index;let isFirst = first" [ngClass]="{active:isFirst}">
-           <img class='img-fluid'  [src]="random.strDrinkThumb" >
-           <div class="carousel-caption d-md-block">
-             <h6 class="badge badge-dark">Name : {{random.strDrink}}</h6>
-             <br>
-             <h6  class="badge badge-dark">Category : {{random.strCategory}}</h6>
-             <br>
-             <h6  class="badge badge-dark">Clasification : {{random.strAlcoholic}}</h6>
-             <br>
-             <button type="button" class="btn btn-primary" value="{{ random.idDrink }}" (click)="getCocktailById(random.idDrink)">Go To Details</button>
-             
-           </div>
-         </div>
-       </div>
-       <a class="carousel-control-prev" href="#carouselCaptions" role="button" data-slide="prev">
-         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-         <span class="sr-only">Previous</span>
-       </a>
-       <a class="carousel-control-next" href="#carouselCaptions" role="button" data-slide="next">
-         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-         <span class="sr-only">Next</span>
-       </a>
-     </div>
-    
-    
+      <input
+        matInput
+        [(ngModel)]="searchLetter"
+        (input)="getCocktailByLetterCocktail()"
+        maxlength="1"
+        class="search-input"
+        type="text"
+        placeholder="Buscar por letra (modo rapido)..."
+      >
     </div>
+
+    <div class="filters glass-panel">
+      <input
+        [(ngModel)]="searchName"
+        (input)="onNameInput()"
+        class="search-input"
+        type="text"
+        list="name-suggestions"
+        placeholder="Buscar por nombre..."
+      >
+      <datalist id="name-suggestions">
+        <option *ngFor="let name of filteredNames" [value]="name"></option>
+      </datalist>
+
+      <input
+        [(ngModel)]="searchIngredient"
+        (input)="onIngredientInput()"
+        class="search-input"
+        type="text"
+        list="ingredient-suggestions"
+        placeholder="Buscar por ingrediente..."
+      >
+      <datalist id="ingredient-suggestions">
+        <option *ngFor="let ingredient of filteredIngredients" [value]="ingredient"></option>
+      </datalist>
+
+      <select [(ngModel)]="selectedCategory" class="search-input">
+        <option value="">Categoria</option>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+
+      <select [(ngModel)]="selectedAlcoholic" class="search-input">
+        <option value="">Tipo de alcohol</option>
+        <option *ngFor="let type of alcoholicTypes" [value]="type">{{ type }}</option>
+      </select>
+
+      <select [(ngModel)]="selectedGlass" class="search-input">
+        <option value="">Vaso</option>
+        <option *ngFor="let glass of glasses" [value]="glass">{{ glass }}</option>
+      </select>
+
+      <div class="filter-buttons">
+        <button type="button" class="btn-modern" (click)="applyFilters()">Aplicar filtros</button>
+        <button type="button" class="btn-secondary" (click)="clearFilters()">Limpiar</button>
+      </div>
+    </div>
+
+    <p class="empty-state" *ngIf="noResults">
+      No se encontraron cocteles con esos criterios.
+    </p>
+
+    <div class="cocktail-slider glass-panel">
+      <ng-container *ngIf="asyncRandom$ | async as randomDrinks">
+      <ol class="slider-indicators">
+        <li
+          *ngFor="let random of randomDrinks; let index = index"
+          [ngClass]="{'active': index === currentSlide}"
+          (click)="goToSlide(index)">
+        </li>
+      </ol>
+
+      <div class="slider-inner" *ngIf="randomDrinks.length">
+        <div class="slider-item">
+          <ng-container *ngIf="randomDrinks[currentSlide] as random">
+          <img class="img-fluid cocktail-img" [src]="random.strDrinkThumb" [alt]="random.strDrink">
+          <div class="slider-caption">
+            <div class="drink-meta">
+              <p class="meta-chip"><span>Nombre:</span> {{random.strDrink}}</p>
+              <p class="meta-chip"><span>Categoria:</span> {{random.strCategory}}</p>
+              <p class="meta-chip"><span>Clasificacion:</span> {{random.strAlcoholic}}</p>
+            </div>
+            <button type="button" class="btn-modern mt-2" value="{{ random.idDrink }}" (click)="getCocktailById(random.idDrink)">
+              Ver detalle
+            </button>
+          </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <button class="slider-control slider-control-prev" type="button" (click)="prevSlide(randomDrinks.length)">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </button>
+      <button class="slider-control slider-control-next" type="button" (click)="nextSlide(randomDrinks.length)">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </button>
+      </ng-container>
+    </div>
+  </div>
+</section>

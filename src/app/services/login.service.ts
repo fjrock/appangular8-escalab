@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat/app';
 
 
 @Injectable({
@@ -16,11 +17,11 @@ export class LoginService {
 
   login(user: any) {
     const { email, password } = user;
-    return this.AngularFireAuth.auth.signInWithEmailAndPassword(email, password);
+    return this.AngularFireAuth.signInWithEmailAndPassword(email, password);
   }
 
   logout() {
-    this.AngularFireAuth.auth.signOut();
+    this.AngularFireAuth.signOut();
   }
 
 }
